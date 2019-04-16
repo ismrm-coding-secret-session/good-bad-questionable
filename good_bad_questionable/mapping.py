@@ -12,14 +12,14 @@ def nonlinear_fit(data_array, model, p0, dim_fit='echo', p_bound=(0, np.inf), p_
     Parameters
     ----------
     data_array : xr.DataArray
-        N-D array to perrform fit on
+        N-D array to perform fit on
     model : callable 
         Function representing the fitted model, with the signature ``model(p, x)``, 
         with ``p`` being an array of parameters to fit, and ``x`` being an ndarray of shape (n,) 
     p0 : array_like with shape (n,) or float
         Initial guess on the model parameters
     dim_fit : str, optional
-        Name of the dimention to perform the fit. Must be present in ``data_array.dims``
+        Name of the dimension to perform the fit. Must be present in ``data_array.dims``
     p_bound: 2-tuple of array_like, optional
         Lower and upper bounds on independent variables. Each array must match the size of p0 
         or be a scalar, in the latter case a bound will be the same for all variables. 
@@ -34,7 +34,7 @@ def nonlinear_fit(data_array, model, p0, dim_fit='echo', p_bound=(0, np.inf), p_
     ds_fit : xr.Dataset
         Dataset with fitted parameters as variables
     dtime : float
-        Time 
+        Time needed to perform the fitting. Captured and returned for illustrative purposes
     """  
     def resid(p, x, y):
         return model(p, x) - y
