@@ -1,13 +1,10 @@
-def the_almighty_wrapper(myobject, **kwargs):
+def the_almighty_wrapper(dicom_path, **kwargs):
     """ Meant to run a very complicated processing pipeline
 
     Parameters:
     -----------
-    myobject: myclass,
-        Your input data preloaded in our custom way. The pipeline used to start 
-        with just the path to the data, but importing routine turned out 
-        different so many times, we finally decided to separate I/O 
-        (just kidding, only input) into a separate function.
+    dicom_path: str,
+        Path to the folder containing DICOM files of a multi-echo 3D GRE 
 
     # Following are the options to control the workflow
 
