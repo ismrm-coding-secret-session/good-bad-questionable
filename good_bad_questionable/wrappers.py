@@ -11,13 +11,9 @@ def the_almighty_wrapper(myobject, **kwargs):
 
     # Following are the options to control the workflow and special cases
 
-    echo_time: iterable, float, optional
-        (necessary for the processing) If given overwrites the echo time 
+    echo_time: array-like, optional
+        (necessary for the processing) If given, overwrites the echo time 
         specified in the input ``myclass`` instance
-
-    first_used_echo_index: int, default: 0
-
-    last_used_echo_index: int, default: -1
 
     which_echo_to_use: str, {'even','odd','all'}, optional
         default: 'all'
@@ -565,7 +561,7 @@ def the_almighty_wrapper(myobject, **kwargs):
     """
     
     if echo_time is None:
-        # if not given, use the one from the I/O
+        # if not given, use the one from the input
         if not myobject.echo_time is None:
             echo_time = myobject.echo_time
         else:
@@ -577,15 +573,18 @@ def the_almighty_wrapper(myobject, **kwargs):
                 print('Echo time not present')
                 AttributeError('echo_time not set')
 
-    if method_to_do_X == 'cauchy-gauss':
+    if method_to_do_X == 'cauchy-gauss' and correct_cauchy_gauss:
         # don't do anything yet!
-        if correct_cauchy_gauss:
-            # empirically discovered that cauchy-gauss correction breaks 
-            # with more than 5 echoes. As a workaround, 
-            # let's update first_used_echo_index
-            if len(echoes_used) > 5:
-                if which_echo_to_use == 'all':
-                    first_used_echo_index += (len(echoes_used) - 5)
-                else:
-                    first_used_echo_index += (len(echoes_used) - 5) // 2 + 1 
-            # do I need to update anything else?
+        # empirically discovered that cauchy-gauss correction breaks 
+        # with more than 5 echoes. 
+        echoes_used = {
+            'all': slice(0,5), 
+            'odd': slice(0,10,2), # since indexing starts from 1
+            'even': slice(1,10,2),
+        }[which_echo_to_use]
+    else:
+        echoes_used = {
+            'all': slice(None), 
+            'odd': slice(None,None,2), # since indexing starts from 1
+            'even': slice(1,None,2),
+        }[which_echo_to_use]
