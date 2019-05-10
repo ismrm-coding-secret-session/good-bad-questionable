@@ -9,19 +9,7 @@ def the_almighty_wrapper(myobject, **kwargs):
         different so many times, we finally decided to separate I/O 
         (just kidding, only input) into a separate function.
 
-    # Following are the options to control the workflow
-
-    save_intermediate: bool, default: True
-        Defines if intermediate results must be saved to the disc.
-    intermediate_folder: str, default: os.path.join(os.getcwd(), 'intermediate')
-        Path to the intermediate results folder. 
-    recompute_all: bool, default: True
-        If True, all intermediate results, if found on the disc, 
-        will be recomputed. To pick up the processing from an existing step, 
-        set to False and place the data in the ``intermediate_folder``
-    recompute_step_a: bool, default: True
-    recompute_step_b: bool, default: True
-    ...
+    # Following are the options to control the workflow and special cases
 
     echo_time: iterable, float, optional
         (necessary for the processing) If given overwrites the echo time 
@@ -42,6 +30,18 @@ def the_almighty_wrapper(myobject, **kwargs):
         bla-bla, default: iterative_splitting
     correct_cauchy_gauss: bool, optional
         Since cauchy-gauss is inexact, apply the following workaround...
+
+    save_intermediate: bool, default: True
+        Defines if intermediate results must be saved to the disc.
+    intermediate_folder: str, default: os.path.join(os.getcwd(), 'intermediate')
+        Path to the intermediate results folder. 
+    recompute_all: bool, default: True
+        If True, all intermediate results, if found on the disc, 
+        will be recomputed. To pick up the processing from an existing step, 
+        set to False and place the data in the ``intermediate_folder``
+    recompute_step_a: bool, default: True
+    recompute_step_b: bool, default: True
+    ...
     
     Lorem: ipsum, dolor sit amet, 
         consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
